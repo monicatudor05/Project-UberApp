@@ -16,8 +16,8 @@ public:
     ~Location();
 
     //getters
-    double getX();
-    double getY();
+    double getX() const;
+    double getY() const ;
     //setters
     void setX(double x);
     void setY(double y);
@@ -28,7 +28,7 @@ public:
     Location& operator=(const Location& other);
 
     //friend functions
-    friend ostream& operator<<(ostream& out, Location& loc );
+    friend ostream& operator<<(ostream& out, const Location& loc );
     friend istream& operator>>(istream& in,  Location& loc);
 
 };

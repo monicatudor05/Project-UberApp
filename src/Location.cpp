@@ -1,15 +1,16 @@
 #include "Location.h"
 #include <cmath>
+using namespace std;
 Location::Location():x(0.0),y(0.0){}
 Location::Location(double x, double y):x(x),y(y){}
 Location::~Location(){}
 
 //getters
-double Location::getX()
+double Location::getX() const
 {
     return x;
 }
-double Location::getY()
+double Location::getY() const
 {
     return y;
 }
@@ -37,7 +38,7 @@ Location& Location::operator=(const Location& other)
     return *this;
 }
 
-ostream& operator<<(ostream& out,  Location& loc)
+ostream& operator<<(ostream& out, const  Location& loc)
 {
     out<<"("<<loc.x<<","<<loc.y<<")";
     return out;
