@@ -1,7 +1,7 @@
 #include "Ride.h"
 
 Ride::Ride(const User& usr, const Driver& driver, const Location& destination):
-user(usr),driver(driver),destination(destination),start(user.getLocation())
+user(usr),driver(driver),start(user.getLocation()),destination(destination)
 {
     distance=start.distanceTo(destination);
     price=distance * driver.getCar().priceMultiplier();

@@ -1,10 +1,9 @@
 #ifndef OOP_RIDE_H
 #define OOP_RIDE_H
 #include<iostream>
-#include<string>
-using namespace std;
 #include "User.h"
 #include "Driver.h"
+#include "Location.h"
 
 class Ride
 {
