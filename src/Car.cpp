@@ -47,6 +47,15 @@ string Car::toString(CarType type)
 
 }
 
+void Car::read(istream& in)
+{
+    cout<<"Brand:\n";
+    in>>brand;
+    cout<<"Model: \n";
+    in>>model;
+    cout<<"PlateNumber: \n";
+    in>>plateNumber;
+}
 void Car::print(ostream& out) const
 {
     out<<Car::toString(getTypeCar())<<": "
@@ -58,4 +67,10 @@ ostream& operator<<(ostream& out, const Car& car)
 {
     car.print(out);
     return out;
+}
+
+istream& operator>>(istream& in, Car& car)
+{
+    car.read(in);
+    return in;
 }

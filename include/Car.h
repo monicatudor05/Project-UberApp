@@ -1,4 +1,3 @@
-
 #ifndef OOP_CAR_H
 #define OOP_CAR_H
 #include<iostream>
@@ -31,10 +30,12 @@ public:
     virtual double priceMultiplier() const=0;
     virtual CarType getTypeCar() const=0;
     virtual void print(ostream& out) const;
+    virtual void read(istream& in);
 
     static string toString(CarType type);
 
 };
 ostream& operator<<(ostream& out, const Car& car);
 
+istream& operator>>(istream& in, Car& car);
 #endif //OOP_CAR_H
