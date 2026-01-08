@@ -16,6 +16,7 @@ private:
     bool available;
 
 public:
+    Driver();
     Driver(const string& fullname, const Location& loc, shared_ptr<Car> car, bool available);
     ~Driver() =default;
 
@@ -30,9 +31,10 @@ public:
     bool isAvailable() const;
 
     void print(ostream& out) const;
+    void read(istream& in);
 
 };
 
 ostream& operator<<(ostream& out, const Driver& driver);
-
+istream& operator>>(istream& in,  Driver& driver);
 #endif //OOP_DRIVER_H

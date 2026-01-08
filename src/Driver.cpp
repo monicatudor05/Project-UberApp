@@ -1,5 +1,8 @@
 #include "Driver.h"
 
+#include "CarFactory.h"
+
+Driver::Driver():fullname("Unknown"),location(0.0,0.0), car(NULL), available(false){}
 Driver::Driver(const string& fullname, const Location& location, shared_ptr<Car> car, bool available):
 fullname(fullname), location(location),car(car),available(available){}
 
@@ -34,11 +37,30 @@ void Driver::print(ostream& out) const
 {
     out<<"Driver: "<<getFullName()<<"| Location: "
     <<getLocation()<<"| Car: "<<getCar()<<" | "
-    <<(available?"AVAILABLE":"BUSY");
+    <<boolalpha<<(available?"AVAILABLE":"BUSY");
+}
+
+void Driver::read(istream& in)
+{
+    cout<<"Fullname: \n";
+    getline(in>>ws, fullname);
+    cout<<"Location: \n";
+    in>>location;
+    cout<<"Car: \n";
+    car=readCarptr(in);
+    cout<<"Available: \n";
+    in>>available;
+
 }
 
 ostream& operator<<(ostream& out, const Driver& driver)
 {
     driver.print(out);
     return out;
+}
+
+istream& operator>>(istream& in, Driver& driver)
+{
+    driver.read(in);
+    return in;
 }
