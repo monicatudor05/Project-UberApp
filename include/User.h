@@ -6,23 +6,23 @@
 class User
 {
 private:
-    string fullname;
-    string email;
+    std::string fullname;
+    std::string email;
     int id;
     Location location;
 
 public:
     User();
-    User(const string& fullname, const string& email, int id,  const Location& loc);
+    User(const std::string& fullname, const std::string& email, int id,  const Location& loc);
     ~User()=default;
 
-    const string& getFullName() const;
-    const string& getEmail() const;
+    const std::string& getFullName() const;
+    const std::string& getEmail() const;
     int getId() const;
     const Location& getLocation() const;
 
-    friend ostream& operator<<(ostream& out, const User& usr);
-    friend istream& operator>>(istream& in, User& usr);
+    friend std::ostream& operator<<(std::ostream& out, const User& usr);
+    friend std::istream& operator>>(std::istream& in, User& usr);
 
 };
 

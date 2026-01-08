@@ -24,7 +24,7 @@ void Location::setY(double newY)
 {
     y=newY;
 }
-double Location::distanceTo(const Location &loc) const
+double Location::distanceTo(const Location& loc) const
 {
     double dx = x - loc.x;
     double dy = y - loc.y;

@@ -1,16 +1,19 @@
 #ifndef OOP_RIDEMANAGER_H
 #define OOP_RIDEMANAGER_H
 #include<vector>
+#include<memory>
 #include "Ride.h"
 
-
+class User;
+class Driver;
+class Location;
 
 class RideManager
 {
 public:
-    static int findBestDriverIndex(const User& user, const vector<Driver>& drivers);
+    static int findBestDriverIndex(const User& user, const std::vector<std::shared_ptr<Driver>>& drivers);
 
-    static Ride createRide(const User& user, vector<Driver>& drivers, const Location& destination);
+    static Ride createRide(const std::shared_ptr<User>& user, std::vector<std::shared_ptr<Driver>>& drivers, const Location& destination);
 
 };
 

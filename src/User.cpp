@@ -1,17 +1,18 @@
 #include "User.h"
 #include<istream>
 #include<ostream>
+#include<iostream>
 User::User():fullname("Unknown"),email("Unknown"), id(0),location(0.0, 0.0){}
-User::User(const string& fullname, const string& email, int id, const Location& location):
+User::User(const std::string& fullname, const std::string& email, int id, const Location& location):
 fullname(fullname), email(email), id(id), location(location){}
 
 
-const string& User::getFullName() const
+const std::string& User::getFullName() const
 {
     return fullname;
 }
 
-const string& User::getEmail() const
+const std::string& User::getEmail() const
 {
     return email;
 }
@@ -23,7 +24,7 @@ const Location& User::getLocation() const
 {
     return location;
 }
-ostream& operator<<(ostream& out, const User& usr)
+std::ostream& operator<<(std::ostream& out, const User& usr)
 {
     out<<"Name: "<<usr.fullname
         <<"\nEmail: "<<usr.email
@@ -32,15 +33,15 @@ ostream& operator<<(ostream& out, const User& usr)
     return out;
 }
 
-istream& operator>>(istream& in, User& usr)
+std::istream& operator>>(std::istream& in, User& usr)
 {
-    cout<<"Fullname: ";
-    getline(in>>ws, usr.fullname);
-    cout<<"Email: ";
+    std::cout<<"Fullname: ";
+    getline(in>>std::ws, usr.fullname);
+    std::cout<<"Email: ";
     in>>usr.email;
-    cout<<"ID: ";
+    std::cout<<"ID: ";
     in>>usr.id;
-    cout<<"Location: ";
+    std::cout<<"Location: ";
     in>>usr.location;
     return in;
 }

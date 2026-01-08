@@ -2,12 +2,14 @@
 #include "Ride.h"
 #include "Driver.h"
 #include "User.h"
-#include "Car.h"
 #include "Location.h"
-#include<RideManager.h>
+#include "RideManager.h"
+#include<iostream>
+#include<limits>
+
 using namespace std;
 
-Menu::Menu(vector<User>& users, vector<Driver>& drivers, vector<Ride>& rides):
+Menu::Menu(vector<shared_ptr<User>>& users, vector<shared_ptr<Driver>>& drivers, vector<Ride>& rides):
 users(users), drivers(drivers), rides(rides){}
 
 
@@ -29,15 +31,15 @@ void Menu::showMainMenu() const
 
 void Menu::listUsers() const
 {
-    cout<<"----  USERS ----\n";
+    cout<<"---- USERS ----\n";
     if (users.empty())
     {
         cout<<"No users yet.\n";
         return;
     }
-    for (int i=0; i<(int)users.size();i++)
+    for (size_t i=0; i<users.size();i++)
     {
-        cout<<i<<")"<<users[i]<<"\n";
+        cout<<i+1<<")"<<*users[i]<<"\n";
     }
 
 }
@@ -50,9 +52,9 @@ void Menu::listDrivers() const
         cout<<"No drivers yet.\n";
         return;
     }
-    for (int i=0; i<(int)drivers.size();i++)
+    for (size_t i=0; i<drivers.size();i++)
     {
-        cout<<i<<")"<<drivers[i]<<"\n";
+        cout<<i+1<<")"<<*drivers[i]<<"\n";
     }
 }
 
@@ -65,9 +67,9 @@ void Menu::listAvailableDrivers() const
         return;
     }
     int ok=1;
-    for (int i=0; i<(int)drivers.size();i++)
+    for (size_t i=0; i<drivers.size();i++)
     {
-        if (drivers[i].isAvailable())
+        if ((*drivers[i]).isAvailable())
         {
             cout<<ok++<<")"<<drivers[i]<<"\n";
         }
@@ -87,7 +89,7 @@ void Menu::listRides() const
         cout<<"No rides yet.\n";
         return;
     }
-    for (int i=0;i<(int)rides.size();i++)
+    for (size_t i=0;i<rides.size();i++)
     {
         cout<<i<<")"<<rides[i]<<"\n";
     }
@@ -97,9 +99,9 @@ void Menu::listRides() const
 void Menu::addUser()
 {
     cout<<"----- ADD USER -----\n";
-    User user;
-    cin>>user;
-    users.push_back(user);
+    auto usr = make_shared<User>();
+    cin>>*usr;
+    users.push_back(usr);
     cout<<"User add successfully!\n";
 
 }
@@ -107,9 +109,9 @@ void Menu::addUser()
 void Menu::addDriver()
 {
     cout<<"------ADD DRIVER -----\n";
-    Driver driver;
-    cin>>driver;
-    drivers.push_back(driver);
+    auto dr =make_shared<Driver>();
+    cin>>*dr;
+    drivers.push_back(dr);
     cout<<"Driver add successfully!\n";
 }
 
@@ -126,7 +128,7 @@ void Menu::requestRide()
     listUsers();
     int usrIndex;
     cin>>usrIndex;
-    if (usrIndex<0 || usrIndex>=(int)users.size())
+    if (usrIndex-1<0 || usrIndex-1>=static_cast<int>(users.size()))
     {
         cout<<"Invalid user index.\n";
         return;
@@ -159,7 +161,13 @@ void Menu::run()
     {
         showMainMenu();
         cout<<"Choose an option!\n";
-        cin>>option;
+        if (!(cin >> option)) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Invalid input. Try again.\n";
+            continue;
+        }
+
 
         switch (option)
         {

@@ -1,22 +1,23 @@
 #ifndef OOP_RIDE_H
 #define OOP_RIDE_H
 #include<iosfwd>
-#include "User.h"
-#include "Driver.h"
-#include "Location.h"
 
+#include "Location.h"
+#include<memory>
+class User;
+class Driver;
 class Ride
 {
 private:
-    const User& user;
-    const Driver& driver;
+    std::shared_ptr<const User> user;
+    std::shared_ptr<const Driver> driver;
     Location start;
     Location destination;
-    double price;
-    double distance;
+    double price{0.0};
+    double distance{0.0};
 
 public:
-    Ride(const User& usr, const Driver& driver, const Location& dest);
+    Ride(std::shared_ptr<const User> usr, std::shared_ptr<const Driver> driver, const Location& dest);
     ~Ride()=default;
 
     double getDistance() const;

@@ -2,7 +2,7 @@
 #include<iostream>
 using namespace std;
 
-StandardCar::StandardCar():Car(){}
+StandardCar::StandardCar():Car(),hasAC(false){}
 StandardCar::StandardCar(const string& brand, const string& model, const string& plate, bool hasAC):
 Car(brand, model, plate), hasAC(hasAC) {}
 
@@ -26,13 +26,18 @@ void StandardCar::print(ostream& out) const
 void StandardCar::read(istream& in)
 {
     Car::read(in);
-    cout<<"Has Ac: \n";
-    in>>hasAC;
+    int ac=0;
+    cout<<"Has AC(0/1): \n";
+    in>>ac;
+    hasAC=(ac==1);
+
 }
+
+
 
 bool StandardCar::getHasAC() const
 {
-    return (hasAC? "Yes": "No");
+    return hasAC;
 }
 void StandardCar::setHasAC(bool ac)
 {

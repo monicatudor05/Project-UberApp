@@ -130,7 +130,26 @@ FetchContent_MakeAvailable(googletest)
 ###############################################################################
 
 # NOTE: update executable name in .github/workflows/cmake.yml:25 when changing name here
-add_executable(${MAIN_EXECUTABLE_NAME} main.cpp ${SOURCES})
+add_executable(${MAIN_EXECUTABLE_NAME} main.cpp ${SOURCES}
+        include/User.h
+        src/User.cpp
+        include/Car.h
+        src/Car.cpp
+        include/ElectricCar.h
+        include/StandardCar.h
+        src/StandardCar.cpp
+        include/ComfortCar.h
+        src/ComfortCar.cpp
+        include/Driver.h
+        src/Driver.cpp
+        include/Ride.h
+        src/Ride.cpp
+        include/RideManager.h
+        src/RideManager.cpp
+        include/Menu.h
+        src/Menu.cpp
+        include/CarFactory.h
+        src/CarFactory.cpp)
 
 # NOTE: Add all defined targets (e.g. executables, libraries, etc. )
 # NOTE: RUN_SANITIZERS is optional, if it's not present it will default to true

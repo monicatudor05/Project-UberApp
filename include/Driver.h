@@ -1,23 +1,22 @@
 #ifndef OOP_DRIVER_H
 #define OOP_DRIVER_H
-#include "Car.h"
 #include "Location.h"
-#include<iostream>
 #include<string>
 #include<memory>
-using namespace std;
+#include<iosfwd>
 
+class Car;
 class Driver
 {
 private:
-    string fullname;
+    std::string fullname;
     Location location;
-    shared_ptr<Car> car;
+    std::shared_ptr<Car> car;
     bool available;
 
 public:
     Driver();
-    Driver(const string& fullname, const Location& loc, shared_ptr<Car> car, bool available);
+    Driver(const std::string& fullname, const Location& loc, const std::shared_ptr<Car>& car, bool available);
     ~Driver() =default;
 
     //setters
@@ -25,16 +24,16 @@ public:
     void setLocation(const Location& loc);
 
     //getters
-    const string& getFullName() const;
+    const std::string& getFullName() const;
     const Location& getLocation() const;
     const Car& getCar() const;
     bool isAvailable() const;
 
-    void print(ostream& out) const;
-    void read(istream& in);
+    void print(std::ostream& out) const;
+    void read(std::istream& in);
 
 };
 
-ostream& operator<<(ostream& out, const Driver& driver);
-istream& operator>>(istream& in,  Driver& driver);
+std::ostream& operator<<(std::ostream& out, const Driver& driver);
+std::istream& operator>>(std::istream& in,  Driver& driver);
 #endif //OOP_DRIVER_H

@@ -1,6 +1,8 @@
 #include "RideManager.h"
 #include<stdexcept>
-int RideManager::findBestDriverIndex(const User& user, const vector<Driver>& drivers)
+#include "Driver.h"
+#include "User.h"
+int RideManager::findBestDriverIndex(const User& user, const std::vector<std::shared_ptr<Driver>>& drivers)
 {
     int bestIndex=-1;
     double bestDistance=0.0;
@@ -8,13 +10,13 @@ int RideManager::findBestDriverIndex(const User& user, const vector<Driver>& dri
 
     for (std::size_t i=0; i<drivers.size();i++)
     {
-        if (drivers[i].isAvailable()==false) continue;
-        double distance=user.getLocation().distanceTo(drivers[i].getLocation());
+        if ((*drivers[i]).isAvailable()==false) continue;
+        double distance=user.getLocation().distanceTo((*drivers[i]).getLocation());
 
         if (found==false || distance< bestDistance)
         {
             bestDistance=distance;
-            bestIndex=i;
+            bestIndex=static_cast<int>(i);
             found = true;
         }
     }
@@ -22,14 +24,14 @@ int RideManager::findBestDriverIndex(const User& user, const vector<Driver>& dri
 
 }
 
-Ride RideManager::createRide(const User& user, vector<Driver>& drivers, const Location& destination)
+Ride RideManager::createRide(const std::shared_ptr<User>& user, std::vector<std::shared_ptr<Driver>>& drivers, const Location& destination)
 {
-    int index = findBestDriverIndex(user, drivers);
+    int index = findBestDriverIndex(*user, drivers);
     if (index==-1)
     {
-        throw runtime_error("No driver available.");
+        throw std::runtime_error("No driver available.");
     }
-    drivers[index].setAvailable(false);
+    (*drivers[index]).setAvailable(false);
     return Ride(user, drivers[index], destination);
 
 }

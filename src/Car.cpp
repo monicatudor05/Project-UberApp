@@ -1,41 +1,41 @@
 #include "Car.h"
-#include<iostream>
-using namespace std;
+#include <iostream>
+
 
 Car::Car():brand("Unknown"), model("Unknown"), plateNumber("Unknown"){}
-Car::Car(const string& b, const string& m, const string& plate):
+Car::Car(const std::string& b, const std::string& m, const std::string& plate):
 brand(b), model(m), plateNumber(plate){}
 
 Car::~Car()=default;
 
-const string& Car::getBrand() const
+const std::string& Car::getBrand() const
 {
     return brand;
 }
 
-const string& Car::getModel() const
+const std::string& Car::getModel() const
 {
     return model;
 }
-const string& Car::getPlateNumber() const
+const std::string& Car::getPlateNumber() const
 {
     return plateNumber;
 }
 
-void Car::setBrand(const string& b)
+void Car::setBrand(const std::string& b)
 {
     brand=b;
 }
-void Car::setModel(const string& m)
+void Car::setModel(const std::string& m)
 {
     model=m;
 }
-void Car::setPlateNumber(const string& p)
+void Car::setPlateNumber(const std::string& p)
 {
     plateNumber=p;
 }
 
-string Car::toString(CarType type)
+std::string Car::toString(CarType type)
 {
     switch (type)
     {
@@ -47,30 +47,24 @@ string Car::toString(CarType type)
 
 }
 
-void Car::read(istream& in)
+void Car::read(std::istream& in)
 {
-    cout<<"Brand:\n";
+    std::cout<<"Enter brand:\n";
     in>>brand;
-    cout<<"Model: \n";
+    std::cout<<"Enter model:\n";
     in>>model;
-    cout<<"PlateNumber: \n";
+    std::cout<<"Enter plate number:\n";
     in>>plateNumber;
 }
-void Car::print(ostream& out) const
+void Car::print(std::ostream& out) const
 {
     out<<Car::toString(getTypeCar())<<": "
     <<brand<<", "<<model<<", ["
     <<plateNumber<<"] x"<<priceMultiplier();
 }
 
-ostream& operator<<(ostream& out, const Car& car)
+std::ostream& operator<<(std::ostream& out, const Car& car)
 {
     car.print(out);
     return out;
-}
-
-istream& operator>>(istream& in, Car& car)
-{
-    car.read(in);
-    return in;
 }

@@ -2,6 +2,9 @@
 #include "ComfortCar.h"
 #include "ElectricCar.h"
 #include "StandardCar.h"
+#include<iostream>
+#include<stdexcept>
+#include<memory>
 #include<string>
 using namespace std;
 shared_ptr<Car> readCarptr(istream& in)

@@ -1,9 +1,12 @@
 #include "Driver.h"
-
+#include "Car.h"
 #include "CarFactory.h"
+#include<iostream>
+#include<stdexcept>
+using namespace std;
 
-Driver::Driver():fullname("Unknown"),location(0.0,0.0), car(NULL), available(false){}
-Driver::Driver(const string& fullname, const Location& location, shared_ptr<Car> car, bool available):
+Driver::Driver():fullname("Unknown"),location(0.0,0.0), car(nullptr), available(false){}
+Driver::Driver(const string& fullname, const Location& location,const  shared_ptr<Car>& car, bool available):
 fullname(fullname), location(location),car(car),available(available){}
 
 void Driver::setAvailable(bool a)
@@ -26,6 +29,10 @@ const Location& Driver::getLocation() const
 }
 const Car& Driver::getCar() const
 {
+    if (!car)
+    {
+        throw runtime_error("Car not initialized");
+    }
     return *car;
 }
 bool Driver::isAvailable() const
@@ -37,7 +44,7 @@ void Driver::print(ostream& out) const
 {
     out<<"Driver: "<<getFullName()<<"| Location: "
     <<getLocation()<<"| Car: "<<getCar()<<" | "
-    <<boolalpha<<(available?"AVAILABLE":"BUSY");
+    <<(available?"AVAILABLE":"BUSY");
 }
 
 void Driver::read(istream& in)
@@ -48,8 +55,10 @@ void Driver::read(istream& in)
     in>>location;
     cout<<"Car: \n";
     car=readCarptr(in);
-    cout<<"Available: \n";
-    in>>available;
+    cout<<"Available(true/false): \n";
+    in>>std::boolalpha>>available;
+
+
 
 }
 

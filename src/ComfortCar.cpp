@@ -1,6 +1,7 @@
 #include "ComfortCar.h"
-
-ComfortCar::ComfortCar():Car(){}
+#include<iostream>
+using namespace std;
+ComfortCar::ComfortCar():Car(),nrSeats(4){}
 ComfortCar::ComfortCar(const string& brand, const string& model, const string& plate, int number ):
 Car(brand, model, plate), nrSeats(number){}
 

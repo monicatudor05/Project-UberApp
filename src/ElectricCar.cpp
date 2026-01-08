@@ -1,6 +1,8 @@
 #include "ElectricCar.h"
+#include<iostream>
+using namespace std;
 
-ElectricCar::ElectricCar():Car(){}
+ElectricCar::ElectricCar():Car(),batteryPercent(0){}
 ElectricCar::ElectricCar(const string& brand, const string& model, const string& plate, int bat):
 Car(brand, model, plate), batteryPercent(bat) {}
 
@@ -32,6 +34,8 @@ int ElectricCar::getBatteryPercent() const
 }
 void ElectricCar::setBatteryPercent(int bat)
 {
+    if (bat<0) bat=0;
+    if (bat>100) bat=100;
     batteryPercent = bat;
 }
 
