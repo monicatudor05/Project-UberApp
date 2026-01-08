@@ -1,6 +1,7 @@
 #include "Location.h"
+#include<iostream>
 #include <cmath>
-Location::Location():x(0.0),y(0.0){}
+using namespace std;
 Location::Location(double x, double y):x(x),y(y){}
 
 
@@ -15,26 +16,19 @@ double Location::getY() const
 }
 
 //setters
-void Location::setX(double x)
+void Location::setX(double newX)
 {
-    this->x = x;
+    x=newX;
 }
-void Location::setY(double y)
+void Location::setY(double newY)
 {
-    this->y = y;
+    y=newY;
 }
 double Location::distanceTo(const Location &loc) const
 {
     double dx = x - loc.x;
     double dy = y - loc.y;
     return sqrt(dx*dx + dy*dy);
-}
-
-Location& Location::operator=(const Location& other)
-{
-    x=other.x;
-    y=other.y;
-    return *this;
 }
 
 ostream& operator<<(ostream& out, const  Location& loc)

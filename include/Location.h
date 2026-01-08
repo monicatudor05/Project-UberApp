@@ -1,18 +1,18 @@
 #ifndef LOCATION_H
 #define LOCATION_H
 
-#include<iostream>
-using namespace std;
+#include<iosfwd>
 
 class Location
 {
 private:
-    double x;
-    double y;
+    double x{0.0};
+    double y{0.0};
 
 public:
-    Location();
+    Location()=default;
     Location(double x, double y);
+    Location(const Location& other)=default;
     ~Location()=default;
 
     //getters
@@ -24,12 +24,12 @@ public:
 
     double distanceTo(const Location& location) const;
 
-    //opeators
-    Location& operator=(const Location& other);
+    //operators
+    Location& operator=(const Location&)=default;
 
     //friend functions
-    friend ostream& operator<<(ostream& out, const Location& loc );
-    friend istream& operator>>(istream& in,  Location& loc);
+    friend std::ostream& operator<<(std::ostream& out, const Location& loc );
+    friend std::istream& operator>>(std::istream& in,  Location& loc);
 
 };
 
