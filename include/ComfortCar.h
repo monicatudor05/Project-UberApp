@@ -10,6 +10,7 @@ class ComfortCar: public Car
 private:
     int nrSeats;
 public:
+    ComfortCar();
     ComfortCar(const string& brand, const string& model, const string& plate, int seats);
     ~ComfortCar() override=default;
 
@@ -17,6 +18,7 @@ public:
     CarType getTypeCar() const override;
 
     void print(ostream& out) const override;
+    void read(istream& in) override;
 
     int getNrSeats() const;
     void setNrSeats(int number);
