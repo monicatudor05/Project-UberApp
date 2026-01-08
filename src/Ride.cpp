@@ -1,7 +1,8 @@
 #include "Ride.h"
+#include<ostream>
 
 Ride::Ride(const User& usr, const Driver& driver, const Location& destination):
-user(usr),driver(driver),start(user.getLocation()),destination(destination)
+user(usr),driver(driver),start(user.getLocation()),destination(destination), price(0.0),distance(0.0)
 {
     distance=start.distanceTo(destination);
     price=distance * driver.getCar().priceMultiplier();
@@ -16,7 +17,7 @@ double Ride::getPrice() const
 {
     return price;
 }
-void Ride::print(ostream& out) const
+void Ride::print(std::ostream& out) const
 {
     out<<"====RIDE=====";
     out<<"User: "<<user.getFullName()<<"\n";

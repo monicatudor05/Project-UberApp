@@ -1,6 +1,6 @@
 #ifndef OOP_RIDE_H
 #define OOP_RIDE_H
-#include<iostream>
+#include<iosfwd>
 #include "User.h"
 #include "Driver.h"
 #include "Location.h"
@@ -22,10 +22,10 @@ public:
     double getDistance() const;
     double getPrice() const;
 
-    void print(ostream& out) const;
+    void print(std::ostream& out) const;
 };
 
-ostream& operator<<(ostream& out, const Ride& r);
+std::ostream& operator<<(std::ostream& out, const Ride& r);
 
 
 #endif //OOP_RIDE_H
