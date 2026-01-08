@@ -1,9 +1,10 @@
 #include "User.h"
-
+#include<istream>
+#include<ostream>
 User::User():fullname("Unknown"),email("Unknown"), id(0),location(0.0, 0.0){}
 User::User(const string& fullname, const string& email, int id, const Location& location):
 fullname(fullname), email(email), id(id), location(location){}
-User::~User(){}
+
 
 const string& User::getFullName() const
 {
@@ -34,7 +35,7 @@ ostream& operator<<(ostream& out, const User& usr)
 istream& operator>>(istream& in, User& usr)
 {
     cout<<"Fullname: ";
-    in>>usr.fullname;
+    getline(in>>ws, usr.fullname);
     cout<<"Email: ";
     in>>usr.email;
     cout<<"ID: ";
