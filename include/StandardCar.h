@@ -10,6 +10,7 @@ class StandardCar:public Car
 private:
     bool hasAC;
 public:
+    StandardCar();
     StandardCar(const string& brand, const string& model, const string& plate, bool hasAC);
     ~ StandardCar() override=default;
 
@@ -17,6 +18,7 @@ public:
     CarType getTypeCar() const override;
 
     void print(ostream& out) const override;
+    void read(istream& in) override;
 
     bool getHasAC() const;
     void setHasAC(bool hasAC);
