@@ -1,9 +1,8 @@
 #include "Location.h"
 #include <cmath>
-using namespace std;
 Location::Location():x(0.0),y(0.0){}
 Location::Location(double x, double y):x(x),y(y){}
-Location::~Location(){}
+
 
 //getters
 double Location::getX() const

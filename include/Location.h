@@ -13,7 +13,7 @@ private:
 public:
     Location();
     Location(double x, double y);
-    ~Location();
+    ~Location()=default;
 
     //getters
     double getX() const;
