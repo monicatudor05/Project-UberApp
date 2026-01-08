@@ -9,6 +9,7 @@ private:
     int batteryPercent;
 
 public:
+    ElectricCar();
     ElectricCar(const string& brand, const string& model, const string& plate, int bat);
     ~ElectricCar() override=default;
 
@@ -16,6 +17,7 @@ public:
     CarType getTypeCar() const override;
 
     void print(ostream& out) const override;
+    void read(istream& in) override;
 
     int getBatteryPercent() const;
     void setBatteryPercent(int bat);

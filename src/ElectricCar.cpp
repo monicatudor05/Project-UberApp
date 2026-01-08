@@ -1,5 +1,6 @@
 #include "ElectricCar.h"
 
+ElectricCar::ElectricCar():Car(){}
 ElectricCar::ElectricCar(const string& brand, const string& model, const string& plate, int bat):
 Car(brand, model, plate), batteryPercent(bat) {}
 
@@ -18,6 +19,13 @@ void ElectricCar::print(ostream& out) const
     Car::print(out);
     out<<"Battery Percent: "<<batteryPercent<<"%";
 }
+
+void ElectricCar::read(istream& in)
+{
+    Car::read(in);
+    in>>batteryPercent;
+}
+
 int ElectricCar::getBatteryPercent() const
 {
     return batteryPercent;
