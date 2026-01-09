@@ -10,7 +10,6 @@ set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-# You aren't supposed to be using this, but convenience...
 file(GLOB_RECURSE SOURCES RELATIVE ${CMAKE_SOURCE_DIR} "src/*")
 file(GLOB_RECURSE HEADERS RELATIVE ${CMAKE_SOURCE_DIR} "include/*")
 file(GLOB_RECURSE TESTS  RELATIVE ${CMAKE_SOURCE_DIR} "test/*.cpp")
@@ -26,13 +25,11 @@ if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
     set(CMAKE_INSTALL_PREFIX "install_dir" CACHE PATH "..." FORCE)
 endif()
 
-
 set(is_debug "$<CONFIG:Debug>")
 set(is_rel_with_deb "$<CONFIG:RelWithDebInfo>")
 set(debug_mode "$<OR:${is_debug},${is_rel_with_deb}>")
 
-###############################################################################
-# custom functions
+
 
 function(detect_libcpp)
     set(OLD_CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS})
@@ -44,6 +41,9 @@ function(detect_libcpp)
     try_compile(HAS_LIBCPP SOURCE_FROM_CONTENT test_stdlib.cpp ${TEST_STDLIB_SRC})
     set(CMAKE_CXX_FLAGS ${OLD_CMAKE_CXX_FLAGS})
     unset(OLD_CMAKE_CXX_FLAGS)
+
+
+    set(HAS_LIBCPP ${HAS_LIBCPP} PARENT_SCOPE)
 endfunction()
 
 function(set_custom_stdlib_and_sanitizers target add_apple_asan)
@@ -91,17 +91,14 @@ include(cmake/CompilerFlags.cmake)
 include(cmake/CopyHelper.cmake)
 
 ###############################################################################
+# MAIN target
 
 add_executable(${MAIN_EXECUTABLE_NAME} main.cpp ${SOURCES} ${HEADERS})
-
-
 set_compiler_flags(RUN_SANITIZERS TRUE TARGET_NAMES ${MAIN_EXECUTABLE_NAME})
-
-
 target_include_directories(${MAIN_EXECUTABLE_NAME} SYSTEM PRIVATE generated/include)
 
 ###############################################################################
-
+# TESTS
 
 option(ENABLE_TESTS "Build tests" ON)
 
@@ -117,14 +114,9 @@ if (ENABLE_TESTS)
     add_library(oop_lib STATIC ${LIB_SOURCES} ${HEADERS})
     target_include_directories(oop_lib PUBLIC ${CMAKE_SOURCE_DIR}/include)
     target_compile_features(oop_lib PUBLIC cxx_std_23)
-
-
     set_compiler_flags(RUN_SANITIZERS TRUE TARGET_NAMES oop_lib)
 
-
     include(FetchContent)
-
-
     set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 
     FetchContent_Declare(
@@ -134,20 +126,45 @@ if (ENABLE_TESTS)
     FetchContent_MakeAvailable(googletest)
 
 
+    if (TARGET gtest)
+        set_custom_stdlib_and_sanitizers(gtest TRUE)
+        endif()
+    if (TARGET gtest_main)
+        set_custom_stdlib_and_sanitizers(gtest_main TRUE)
+        endif()
+    if (TARGET gmock)
+        set_custom_stdlib_and_sanitizers(gmock TRUE)
+        endif()
+    if (TARGET gmock_main)
+        set_custom_stdlib_and_sanitizers(gmock_main TRUE)
+        endif()
+
+
+    if (MSVC AND USE_ASAN)
+        if (TARGET gtest)
+            set_compiler_flags(RUN_SANITIZERS TRUE TARGET_NAMES gtest)
+            endif()
+        if (TARGET gtest_main)
+            set_compiler_flags(RUN_SANITIZERS TRUE TARGET_NAMES gtest_main)
+            endif()
+        if (TARGET gmock)
+            set_compiler_flags(RUN_SANITIZERS TRUE TARGET_NAMES gmock)
+        endif()
+        if (TARGET gmock_main)
+            set_compiler_flags(RUN_SANITIZERS TRUE TARGET_NAMES gmock_main)
+        endif()
+    endif()
+
     if (TESTS)
-        add_executable(test_oop ${TESTS}
-                test/rideManager.cpp)
+        add_executable(test_oop ${TESTS})
         target_link_libraries(test_oop PRIVATE oop_lib GTest::gtest_main)
         target_include_directories(test_oop PRIVATE ${CMAKE_SOURCE_DIR}/include)
-
         set_compiler_flags(RUN_SANITIZERS TRUE TARGET_NAMES test_oop)
 
         include(GoogleTest)
         gtest_discover_tests(test_oop)
     endif()
 endif()
-
-###############################################################################
 
 
 install(TARGETS ${MAIN_EXECUTABLE_NAME} DESTINATION ${DESTINATION_DIR})
