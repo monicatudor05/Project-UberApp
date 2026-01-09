@@ -8,6 +8,7 @@
 #include <iostream>
 #include <limits>
 #include <memory>
+#include<algorithm>
 
 using namespace std;
 
@@ -29,6 +30,7 @@ void Menu::showMainMenu() const
     cout<<"5. Add user \n";
     cout<<"6. Add driver \n";
     cout<<"7. Request ride \n";
+    cout<<"8. Show sorted drivers by distance \n";
     cout<<"0. Exit \n";
 
 }
@@ -119,6 +121,43 @@ void Menu::addDriver()
     cout<<"Driver add successfully!\n";
 }
 
+//aiaci modif
+void Menu::sortDriversByDistance(std::vector<std::shared_ptr<Driver>>& list,  Location& userLocation)
+{
+    std::sort(list.begin(),list.end(),[&](const std::shared_ptr<Driver>& a, const std::shared_ptr<Driver>& b)
+    {
+        if (a->isAvailable()!=b->isAvailable())
+            return a->isAvailable()>b->isAvailable();
+        return a->getLocation().distanceTo(userLocation)<b->getLocation().distanceTo(userLocation);
+    });
+
+}
+
+void Menu::showDriversByDistance()
+{
+    if (drivers.empty())
+    {
+        cout<<"No drivers available.\n";
+        return;
+    }
+
+    double x,y;
+    cout<<"Enter user location: "<<endl;
+    cout<<"Enter x:"<<endl;
+    cin>>x;
+    cout<<"Enter y:"<<endl;
+    cin>>y;
+    Location userLocation(x,y);
+
+    auto sortedDrivers=drivers;
+    sortDriversByDistance(sortedDrivers,userLocation);
+    for (const auto& driver : sortedDrivers)
+    {
+        cout<<*driver<<" | distance = "<<driver->getLocation().distanceTo(userLocation)<<endl;
+    }
+
+}
+
 void Menu::requestRide()
 {
     cout<<"----- REQUEST RIDE -----\n";
@@ -183,6 +222,7 @@ void Menu::run()
         case 5: addUser(); break;
         case 6: addDriver(); break;
         case 7: requestRide(); break;
+        case 8: showDriversByDistance(); break;
         case 0:
             cout<<"Exit menu.\n";
             return;

@@ -18,8 +18,9 @@ public:
     void print(std::ostream& out) const override;
     void read(std::istream& in) override;
 
-
+    [[maybe_unused]]
     bool getHasAC() const;
+    [[maybe_unused]]
     void setHasAC(bool hasAC);
 
 

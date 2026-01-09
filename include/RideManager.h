@@ -13,7 +13,7 @@ class RideManager
 public:
     static int findBestDriverIndex(const User& user, const std::vector<std::shared_ptr<Driver>>& drivers);
 
-    static Ride createRide(const std::shared_ptr<User>& user, std::vector<std::shared_ptr<Driver>>& drivers, const Location& destination);
+    static Ride createRide(const std::shared_ptr<User>& user, const std::vector<std::shared_ptr<Driver>>& drivers, const Location& destination);
 
 };
 

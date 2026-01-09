@@ -20,7 +20,9 @@ public:
     void print(std::ostream& out) const override;
     void read(std::istream& in) override;
 
+    [[maybe_unused]]
     int getBatteryPercent() const;
+    [[maybe_unused]]
     void setBatteryPercent(int bat);
 
 };

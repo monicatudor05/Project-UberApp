@@ -20,7 +20,9 @@ public:
     Ride(const User& usr, const Driver& driver, const Location& dest);
     ~Ride()=default;
 
+    [[maybe_unused]]
     double getDistance() const;
+    [[maybe_unused]]
     double getPrice() const;
 
     void print(std::ostream& out) const;

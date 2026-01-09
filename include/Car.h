@@ -19,13 +19,19 @@ public:
     virtual ~Car();
 
     //getters
+    [[maybe_unused]]
     const std::string& getBrand() const;
+    [[maybe_unused]]
     const std::string& getModel() const;
+    [[maybe_unused]]
     const std::string& getPlateNumber() const;
 
     //setters
+    [[maybe_unused]]
     void setBrand(const std::string& b);
+    [[maybe_unused]]
     void setModel(const std::string& m);
+    [[maybe_unused]]
     void setPlateNumber(const std::string& p);
 
     virtual double priceMultiplier() const=0;

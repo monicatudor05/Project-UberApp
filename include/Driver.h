@@ -21,6 +21,7 @@ public:
 
     //setters
     void setAvailable(bool available);
+    [[maybe_unused]]
     void setLocation(const Location& loc);
 
     //getters

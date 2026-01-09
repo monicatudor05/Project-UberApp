@@ -5,6 +5,7 @@
 class User;
 class Driver;
 class Ride;
+class Location;//aici am modif
 
 class Menu
 {
@@ -18,7 +19,10 @@ private:
     void listDrivers() const;
     void listRides() const;
     void listAvailableDrivers() const;
-
+    void sortDriversByDistance(std::vector<std::shared_ptr<Driver>>& list, Location& userLocation);
+    void showDriversByDistance();
+    //trb sa implementez sortare cu lambda pt driverii available si  cei mai apropiati de user
+    //trb sa implementez o cautare dupa un anumit user, adica sa mi afisezee isstoricul unui user
     void requestRide();
     void addUser();
     void addDriver();

@@ -149,7 +149,9 @@ add_executable(${MAIN_EXECUTABLE_NAME} main.cpp ${SOURCES}
         include/Menu.h
         src/Menu.cpp
         include/CarFactory.h
-        src/CarFactory.cpp)
+        src/CarFactory.cpp
+        include/App.h
+        src/App.cpp)
 
 # NOTE: Add all defined targets (e.g. executables, libraries, etc. )
 # NOTE: RUN_SANITIZERS is optional, if it's not present it will default to true

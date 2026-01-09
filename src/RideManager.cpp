@@ -24,7 +24,7 @@ int RideManager::findBestDriverIndex(const User& user, const std::vector<std::sh
 
 }
 
-Ride RideManager::createRide(const std::shared_ptr<User>& user, std::vector<std::shared_ptr<Driver>>& drivers, const Location& destination)
+Ride RideManager::createRide(const std::shared_ptr<User>& user, const std::vector<std::shared_ptr<Driver>>& drivers, const Location& destination)
 {
     int index = findBestDriverIndex(*user, drivers);
     if (index==-1)
