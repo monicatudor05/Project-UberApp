@@ -1,16 +1,20 @@
+#include "StandardCar.h"
 #include "Menu.h"
 #include "Ride.h"
 #include "Driver.h"
 #include "User.h"
 #include "Location.h"
 #include "RideManager.h"
-#include<iostream>
-#include<limits>
+#include <iostream>
+#include <limits>
+#include <memory>
 
 using namespace std;
 
-Menu::Menu(vector<shared_ptr<User>>& users, vector<shared_ptr<Driver>>& drivers, vector<Ride>& rides):
+Menu::Menu(std::vector<std::shared_ptr<User>>& users, std::vector<std::shared_ptr<Driver>>& drivers, std::vector<Ride>& rides):
 users(users), drivers(drivers), rides(rides){}
+
+
 
 
 void Menu::showMainMenu() const
@@ -18,9 +22,9 @@ void Menu::showMainMenu() const
     cout<<"=====================\n";
     cout<<"MINI UBER - MAIN MENU \n";
     cout<<"=====================\n";
-    cout<<"1. Show all users\n ";
+    cout<<"1. Show all users\n";
     cout<<"2. Show all drivers \n";
-    cout<<"3. Show all available drivers\n ";
+    cout<<"3. Show all available drivers\n";
     cout<<"4. Show all rides \n";
     cout<<"5. Add user \n";
     cout<<"6. Add driver \n";
@@ -91,7 +95,7 @@ void Menu::listRides() const
     }
     for (size_t i=0;i<rides.size();i++)
     {
-        cout<<i<<")"<<rides[i]<<"\n";
+        cout<<i+1<<")"<<rides[i]<<"\n";
     }
 
 }
@@ -143,7 +147,7 @@ void Menu::requestRide()
 
     try
     {
-        Ride r = RideManager::createRide(users[usrIndex], drivers,destination);
+        Ride r = RideManager::createRide(users[usrIndex-1], drivers,destination);
         cout<<"Ride created successfully!\n";
         cout<<r;
         rides.push_back(r);
@@ -156,6 +160,7 @@ void Menu::requestRide()
 
 void Menu::run()
 {
+
     int option;
     while (true)
     {
@@ -188,3 +193,5 @@ void Menu::run()
 
     }
 }
+
+

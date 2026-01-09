@@ -32,6 +32,6 @@ Ride RideManager::createRide(const std::shared_ptr<User>& user, std::vector<std:
         throw std::runtime_error("No driver available.");
     }
     (*drivers[index]).setAvailable(false);
-    return Ride(user, drivers[index], destination);
+    return Ride(*user, *drivers[index], destination);
 
 }

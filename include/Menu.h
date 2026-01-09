@@ -26,6 +26,7 @@ private:
 public:
     Menu(std::vector<std::shared_ptr<User>>& users, std::vector<std::shared_ptr<Driver>>& drivers, std::vector<Ride>& rides);
     void run();
+
 };
 
 #endif //OOP_MENU_H

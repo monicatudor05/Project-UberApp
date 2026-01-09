@@ -9,15 +9,15 @@ class Driver;
 class Ride
 {
 private:
-    std::shared_ptr<const User> user;
-    std::shared_ptr<const Driver> driver;
-    Location start;
-    Location destination;
+    const User& user;
+    const Driver& driver;
+    const Location& start;
+    const Location& destination;
     double price{0.0};
     double distance{0.0};
 
 public:
-    Ride(std::shared_ptr<const User> usr, std::shared_ptr<const Driver> driver, const Location& dest);
+    Ride(const User& usr, const Driver& driver, const Location& dest);
     ~Ride()=default;
 
     double getDistance() const;

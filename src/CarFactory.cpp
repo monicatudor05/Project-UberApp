@@ -14,11 +14,14 @@ shared_ptr<Car> readCarptr(istream& in)
     in>>op;
     string brand, model, plate;
     cout<<"Enter brand: ";
-    in>>brand;
+    //in>>brand;
+    getline(in>>std::ws, brand);
     cout<<"Enter model: ";
-    in>>model;
-    cout<<"Enter plate: ";
-    in>>plate;
+    //in>>model;
+    getline(in>>std::ws, model);
+    cout<<"Enter plate number: ";
+    getline(in>>std::ws, plate);
+    //in>>plate;
 
     if (op==0)
     {

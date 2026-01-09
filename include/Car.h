@@ -4,7 +4,6 @@
 #include<string>
 
 
-
 enum class CarType{ElectricCar, StandardCar, ComfortCar};
 
 class Car

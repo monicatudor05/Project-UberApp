@@ -50,11 +50,14 @@ std::string Car::toString(CarType type)
 void Car::read(std::istream& in)
 {
     std::cout<<"Enter brand:\n";
-    in>>brand;
+    getline(in>>std::ws, brand);
+    //in>>brand;
     std::cout<<"Enter model:\n";
-    in>>model;
+    getline(in>>std::ws, model);
+    //in>>model;
     std::cout<<"Enter plate number:\n";
-    in>>plateNumber;
+    //in>>plateNumber;
+    getline(in>>std::ws, plateNumber);
 }
 void Car::print(std::ostream& out) const
 {
