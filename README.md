@@ -23,7 +23,7 @@ The project is organized using a clear separation between header files and
 implementation files, following common C++ best practices.
 ---
 
-## ⚙️ Technologies Used
+## Technologies Used
 
 - C++17 / C++20
 - STL (`vector`, `shared_ptr`, `algorithm`)
@@ -33,7 +33,7 @@ implementation files, following common C++ best practices.
 
 ---
 
-## 🖥️ Menu Options
+##  Menu Options
 
 The application provides a console-based menu that allows the user to interact
 with the system through numeric commands.
@@ -195,7 +195,7 @@ Each class has a well-defined responsibility:
 
 ---
 
-## 🔍 Code Quality
+##  Code Quality
 
 ### Static Analysis (cppcheck)
 The project can be checked with **cppcheck** (often via GitHub Actions) to detect:

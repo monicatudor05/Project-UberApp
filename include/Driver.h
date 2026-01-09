@@ -21,8 +21,7 @@ public:
 
     //setters
     void setAvailable(bool available);
-    [[maybe_unused]]
-    void setLocation(const Location& loc);
+    [[maybe_unused]] void setLocation(const Location& loc);
 
     //getters
     const std::string& getFullName() const;
