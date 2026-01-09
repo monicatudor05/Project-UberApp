@@ -33,8 +33,6 @@ void StandardCar::read(istream& in)
 
 }
 
-
-
 bool StandardCar::getHasAC() const
 {
     return hasAC;

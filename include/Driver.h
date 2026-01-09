@@ -19,11 +19,11 @@ public:
     Driver(const std::string& fullname, const Location& loc, const std::shared_ptr<Car>& car, bool available);
     ~Driver() =default;
 
-    //setters
+
     void setAvailable(bool available);
     [[maybe_unused]] void setLocation(const Location& loc);
 
-    //getters
+
     const std::string& getFullName() const;
     const Location& getLocation() const;
     const Car& getCar() const;

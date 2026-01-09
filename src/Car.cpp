@@ -51,19 +51,18 @@ void Car::read(std::istream& in)
 {
     std::cout<<"Enter brand:\n";
     getline(in>>std::ws, brand);
-    //in>>brand;
+
     std::cout<<"Enter model:\n";
     getline(in>>std::ws, model);
-    //in>>model;
+
     std::cout<<"Enter plate number:\n";
-    //in>>plateNumber;
     getline(in>>std::ws, plateNumber);
 }
 void Car::print(std::ostream& out) const
 {
     out<<Car::toString(getTypeCar())<<": "
     <<brand<<", "<<model<<", ["
-    <<plateNumber<<"] x"<<priceMultiplier();
+    <<plateNumber<<"] x"<<priceMultiplier()<<" ";
 }
 
 std::ostream& operator<<(std::ostream& out, const Car& car)

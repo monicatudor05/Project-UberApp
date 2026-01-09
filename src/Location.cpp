@@ -4,8 +4,6 @@
 using namespace std;
 Location::Location(double x, double y):x(x),y(y){}
 
-
-//getters
 double Location::getX() const
 {
     return x;
@@ -15,7 +13,6 @@ double Location::getY() const
     return y;
 }
 
-//setters
 void Location::setX(double newX)
 {
     x=newX;

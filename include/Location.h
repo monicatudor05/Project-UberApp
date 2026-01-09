@@ -24,10 +24,9 @@ public:
 
     double distanceTo(const Location& location) const;
 
-    //operators
     Location& operator=(const Location&)=default;
 
-    //friend functions
+
     friend std::ostream& operator<<(std::ostream& out, const Location& loc );
     friend std::istream& operator>>(std::istream& in,  Location& loc);
 

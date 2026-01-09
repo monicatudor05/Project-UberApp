@@ -1,6 +1,9 @@
 #include "Driver.h"
 #include "Car.h"
 #include "CarFactory.h"
+#include "ComfortCar.h"
+#include "ElectricCar.h"
+#include "StandardCar.h"
 #include<iostream>
 #include<stdexcept>
 using namespace std;
@@ -54,7 +57,13 @@ void Driver::read(istream& in)
     cout<<"Location: \n";
     in>>location;
     cout<<"Car: \n";
-    car=readCarptr(in);
+    int op;
+    std::cout<<"CarType (0=Standard, 1=Comfort, 2=Electric)";
+    if (!(in>>op))
+    {
+        return;
+    }
+    car=buildCar(static_cast<CarType>(op),in);
     cout<<"Available(true/false): \n";
     in>>std::boolalpha>>available;
 

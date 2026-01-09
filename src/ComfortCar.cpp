@@ -24,6 +24,7 @@ void ComfortCar::print(ostream& out) const
 void ComfortCar::read(istream& in)
 {
     Car::read(in);
+    cout<<"Number seats: "<<endl;
     in>>nrSeats;
 
 }

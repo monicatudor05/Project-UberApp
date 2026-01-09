@@ -121,7 +121,6 @@ void Menu::addDriver()
     cout<<"Driver add successfully!\n";
 }
 
-//aiaci modif
 void Menu::sortDriversByDistance(std::vector<std::shared_ptr<Driver>>& list,  Location& userLocation)
 {
     std::sort(list.begin(),list.end(),[&](const std::shared_ptr<Driver>& a, const std::shared_ptr<Driver>& b)

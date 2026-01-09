@@ -25,6 +25,7 @@ void ElectricCar::print(ostream& out) const
 void ElectricCar::read(istream& in)
 {
     Car::read(in);
+    cout<<"Enter battery percent: "<<endl;
     in>>batteryPercent;
 }
 
