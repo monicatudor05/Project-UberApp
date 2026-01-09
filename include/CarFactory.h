@@ -42,7 +42,10 @@ inline auto buildCar(CarType type, std::istream& in) -> std::shared_ptr<Car>
         return buildCar<ComfortCar>(in);
         case CarType::StandardCar:
         return buildCar<StandardCar>(in);
+        default: return nullptr;
     }
+
+
 }
 
 
