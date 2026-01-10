@@ -29,7 +29,7 @@ std::ostream& operator<<(std::ostream& out, const User& usr)
     out<<"Name: "<<usr.fullname
         <<"\nEmail: "<<usr.email
         <<"\nID: "<<usr.id
-    <<"\nLocation: "<<usr.location;
+    <<"\nLocation: \n"<<usr.location;
     return out;
 }
 

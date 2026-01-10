@@ -77,7 +77,7 @@ void Menu::listAvailableDrivers() const
     {
         if ((*drivers[i]).isAvailable())
         {
-            cout<<ok++<<")"<<drivers[i]<<"\n";
+            cout<<ok++<<")"<<drivers[i]->getFullName()<<"\n";
         }
     }
     if (ok==1)
@@ -152,7 +152,7 @@ void Menu::showDriversByDistance()
     sortDriversByDistance(sortedDrivers,userLocation);
     for (const auto& driver : sortedDrivers)
     {
-        cout<<*driver<<" | distance = "<<driver->getLocation().distanceTo(userLocation)<<endl;
+        cout<<driver->getFullName()<<" | distance = "<<driver->getLocation().distanceTo(userLocation)<<endl;
     }
 
 }

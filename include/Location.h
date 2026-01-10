@@ -15,10 +15,10 @@ public:
     Location(const Location& other)=default;
     ~Location()=default;
 
-    //getters
+
     [[maybe_unused]] double getX() const;
     [[maybe_unused]] double getY() const ;
-    //setters
+
     [[maybe_unused]] void setX(double x);
     [[maybe_unused]] void setY(double y);
 
