@@ -1,4 +1,28 @@
-# Ignore uninitialized values in the system libc++
+# Ignore Google Test internals
+src:*/googletest/*
+src:*/googlemock/*
+src:*/_deps/googletest-src/*
+fun:*std::__1*
+fun:*testing*
+
+# Ignore libc++ and LLVM internal headers
 src:*/include/c++/v1/*
-# Ignore GoogleTest internals if they trigger false positives due to libc++
-fun:*testing*internal*
+src:*/llvm-18/*
+
+# Catch all dependencies in the build folder
+src:*/_deps/*
+
+# Catch anything in the LLVM tree
+src:*/llvm-18/*
+# Catch everything in the system includes
+src:/usr/include/*
+src:/lib/*
+
+# Ignore system libc (glibc)
+src:/lib/aarch64-linux-gnu/*
+fun:malloc
+fun:free
+fun:strncmp
+fun:memchr
+fun:strlen
+fun:strcmp

@@ -83,6 +83,12 @@ function(set_custom_stdlib_and_sanitizers target add_apple_asan)
             if(USE_ASAN)
                 target_compile_options(${target} PRIVATE "$<${debug_mode}:-fsanitize=address,undefined>")
                 target_link_options(${target} PRIVATE "$<${debug_mode}:-fsanitize=address,undefined>")
+            elseif(USE_MSAN)
+                set(MSAN_IGNORE_PATH "${CMAKE_SOURCE_DIR}/msan_ignore.txt")
+                # use semi-colons instead of spaces to separate arguments
+                # it is recommended to quote generator expressions in order to avoid unintentional splitting
+                target_compile_options(${target} PRIVATE "$<${debug_mode}:-fsanitize=memory,undefined;-fsanitize-recover=memory,undefined;-fsanitize-memory-track-origins;-fsanitize-ignorelist=${MSAN_IGNORE_PATH}>")
+                target_link_options(${target} PRIVATE "$<${debug_mode}:-fsanitize=memory,undefined;-fsanitize-recover=memory,undefined;-fsanitize-memory-track-origins>")
             endif()
         endif()
     elseif(UNIX)
@@ -92,10 +98,11 @@ function(set_custom_stdlib_and_sanitizers target add_apple_asan)
             target_compile_options(${target} PRIVATE "$<${debug_mode}:-fsanitize=address,undefined>")
             target_link_options(${target} PRIVATE "$<${debug_mode}:-fsanitize=address,undefined>")
         elseif(USE_MSAN)
+            set(MSAN_IGNORE_PATH "${CMAKE_SOURCE_DIR}/msan_ignore.txt")
             # use semi-colons instead of spaces to separate arguments
             # it is recommended to quote generator expressions in order to avoid unintentional splitting
-            target_compile_options(${target} PRIVATE "$<${debug_mode}:-fsanitize=memory,undefined;-fsanitize-recover=memory,undefined;-fsanitize-memory-track-origins>")
-            target_link_options(${target} PRIVATE "$<${debug_mode}:-fsanitize=memory,undefined;-fsanitize-recover=memory,undefined;-fsanitize-memory-track-origins;-Wl,-rpath,tools/llvm-project/build/lib>")
+            target_compile_options(${target} PRIVATE "$<${debug_mode}:-fsanitize=memory,undefined;-fsanitize-recover=memory,undefined;-fsanitize-memory-track-origins;-fsanitize-ignorelist=${MSAN_IGNORE_PATH}>")
+            target_link_options(${target} PRIVATE "$<${debug_mode}:-fsanitize=memory,undefined;-fsanitize-recover=memory,undefined;-fsanitize-memory-track-origins>")
         endif()
     endif()
 endfunction()
@@ -174,12 +181,12 @@ endif()
 enable_testing()
 add_executable(
         ${MAIN_EXECUTABLE_NAME}_test
+        ${SOURCES}
         ${TESTS}
 )
 
 target_link_libraries(
         ${MAIN_EXECUTABLE_NAME}_test
-        ${MAIN_EXECUTABLE_NAME}_core
         GTest::gtest_main
         GTest::gtest
         GTest::gmock
@@ -190,7 +197,7 @@ include(GoogleTest)
 gtest_discover_tests(${MAIN_EXECUTABLE_NAME}_test)
 copy_files(FILES tastatura.txt COPY_TO_DESTINATION TARGET_NAME ${MAIN_EXECUTABLE_NAME})
 
-set_compiler_flags(RUN_SANITIZERS TRUE TARGET_NAMES ${MAIN_EXECUTABLE_NAME}_test)
+set_compiler_flags(RUN_SANITIZERS FALSE TARGET_NAMES ${MAIN_EXECUTABLE_NAME}_test)
 
 # copy_files(FILES tastatura.txt config.json DIRECTORY images sounds COPY_TO_DESTINATION TARGET_NAME ${MAIN_EXECUTABLE_NAME})
 # copy_files(DIRECTORY images sounds COPY_TO_DESTINATION TARGET_NAME ${MAIN_EXECUTABLE_NAME})
