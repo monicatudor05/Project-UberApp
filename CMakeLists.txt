@@ -125,7 +125,7 @@ FetchContent_MakeAvailable(googletest)
 
 # external dependencies with find_package
 
-# find_package(Threads REQUIRED)
+find_package(Threads REQUIRED)
 
 ###############################################################################
 
@@ -174,6 +174,7 @@ target_link_libraries(
         GTest::gtest_main
         GTest::gtest
         GTest::gmock
+        Threads::Threads
 )
 
 include(GoogleTest)
