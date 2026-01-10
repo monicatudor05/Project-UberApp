@@ -29,12 +29,3 @@ void ComfortCar::read(istream& in)
 
 }
 
-int ComfortCar::getNrSeats() const
-{
-    return nrSeats;
-}
-
-void ComfortCar::setNrSeats(int number)
-{
-    nrSeats=number;
-}

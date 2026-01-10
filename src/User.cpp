@@ -12,7 +12,14 @@ const std::string& User::getFullName() const
     return fullname;
 }
 
-
+const std::string& User::getEmail() const
+{
+    return email;
+}
+int User::getId() const
+{
+    return id;
+}
 const Location& User::getLocation() const
 {
     return location;

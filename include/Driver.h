@@ -21,6 +21,7 @@ public:
 
 
     void setAvailable(bool available);
+    [[maybe_unused]] void setLocation(const Location& loc);
 
 
     const std::string& getFullName() const;

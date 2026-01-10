@@ -29,4 +29,14 @@ void ElectricCar::read(istream& in)
     in>>batteryPercent;
 }
 
+int ElectricCar::getBatteryPercent() const
+{
+    return batteryPercent;
+}
+void ElectricCar::setBatteryPercent(int bat)
+{
+    if (bat<0) bat=0;
+    if (bat>100) bat=100;
+    batteryPercent = bat;
+}
 
