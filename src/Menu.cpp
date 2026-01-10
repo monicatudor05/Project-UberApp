@@ -199,7 +199,7 @@ void Menu::requestRide()
 void Menu::run()
 {
 
-    int option;
+    int option = 0;
     while (true)
     {
         showMainMenu();
