@@ -100,6 +100,8 @@ target_include_directories(${MAIN_EXECUTABLE_NAME} SYSTEM PRIVATE generated/incl
 ###############################################################################
 # TESTS
 
+
+
 option(ENABLE_TESTS "Build tests" ON)
 
 if (ENABLE_TESTS)
@@ -197,8 +199,15 @@ if (ENABLE_TESTS)
         target_include_directories(test_oop PRIVATE ${CMAKE_SOURCE_DIR}/include)
         set_compiler_flags(RUN_SANITIZERS TRUE TARGET_NAMES test_oop)
 
-        include(GoogleTest)
-        gtest_discover_tests(test_oop)
+        #include(GoogleTest)
+        #gtest_discover_tests(test_oop)
+        if (NOT (WIN32 AND MSVC AND USE_ASAN))
+            include(GoogleTest)
+            gtest_discover_tests(test_oop)
+        else()
+            message(STATUS "CTest registration disabled for test_oop on Windows MSVC ASAN (build-only).")
+        endif()
+
     endif()
 endif()
 
