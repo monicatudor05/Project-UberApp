@@ -130,7 +130,7 @@ FetchContent_MakeAvailable(googletest)
 ###############################################################################
 
 add_library(${MAIN_EXECUTABLE_NAME}_core ${SOURCES})
-target_link_libraries(${MAIN_EXECUTABLE_NAME}_core stdc++)
+target_link_libraries(${MAIN_EXECUTABLE_NAME}_core stdc++ c++)
 
 # NOTE: update executable name in .github/workflows/cmake.yml:25 when changing name here
 add_executable(${MAIN_EXECUTABLE_NAME} main.cpp)
