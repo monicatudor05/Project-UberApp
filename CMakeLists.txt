@@ -105,6 +105,16 @@ include(cmake/CopyHelper.cmake)
 
 ###############################################################################
 
+if("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang" AND NOT WIN32)
+    detect_libcpp()
+    if(HAS_LIBCPP)
+        message(STATUS "Using libc++ globally")
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
+        set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -stdlib=libc++")
+        set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -stdlib=libc++")
+    endif()
+endif()
+
 # external dependencies with FetchContent
 include(FetchContent)
 #
@@ -124,7 +134,6 @@ FetchContent_MakeAvailable(googletest)
 ###############################################################################
 
 # external dependencies with find_package
-
 find_package(Threads REQUIRED)
 
 ###############################################################################
