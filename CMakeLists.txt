@@ -130,10 +130,11 @@ FetchContent_MakeAvailable(googletest)
 ###############################################################################
 
 add_library(${MAIN_EXECUTABLE_NAME}_core ${SOURCES})
+target_link_libraries(${MAIN_EXECUTABLE_NAME}_core stdc++)
 
 # NOTE: update executable name in .github/workflows/cmake.yml:25 when changing name here
 add_executable(${MAIN_EXECUTABLE_NAME} main.cpp)
-target_link_libraries(${MAIN_EXECUTABLE_NAME} ${MAIN_EXECUTABLE_NAME}_core stdc++)
+target_link_libraries(${MAIN_EXECUTABLE_NAME} ${MAIN_EXECUTABLE_NAME}_core)
 
 # NOTE: Add all defined targets (e.g. executables, libraries, etc. )
 # NOTE: RUN_SANITIZERS is optional, if it's not present it will default to true
@@ -171,7 +172,6 @@ target_link_libraries(
         ${MAIN_EXECUTABLE_NAME}_test
         ${MAIN_EXECUTABLE_NAME}_core
         GTest::gtest_main
-        stdc++
 )
 
 include(GoogleTest)
