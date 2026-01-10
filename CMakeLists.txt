@@ -157,6 +157,42 @@ if (ENABLE_TESTS)
 
     if (TESTS)
         add_executable(test_oop ${TESTS})
+        if (MSVC AND USE_ASAN)
+            set(_asan_paths
+                    "$ENV{VCINSTALLDIR}/Tools/Llvm/x64/bin"
+                    "$ENV{VCINSTALLDIR}/Tools/Llvm/bin"
+                    "$ENV{VSINSTALLDIR}/VC/Tools/Llvm/x64/bin"
+                    "$ENV{VSINSTALLDIR}/VC/Tools/Llvm/bin"
+            )
+
+            find_file(ASAN_DLL
+                    NAMES clang_rt.asan_dynamic-x86_64.dll
+                    PATHS ${_asan_paths}
+                    NO_DEFAULT_PATH
+            )
+            find_file(ASAN_THUNK_DLL
+                    NAMES clang_rt.asan_dynamic_runtime_thunk-x86_64.dll
+                    PATHS ${_asan_paths}
+                    NO_DEFAULT_PATH
+            )
+
+            if (ASAN_DLL AND ASAN_THUNK_DLL)
+                foreach(_tgt ${MAIN_EXECUTABLE_NAME} test_oop)
+                    if (TARGET ${_tgt})
+                        add_custom_command(TARGET ${_tgt} POST_BUILD
+                                COMMAND ${CMAKE_COMMAND} -E copy_if_different
+                                "${ASAN_DLL}" "$<TARGET_FILE_DIR:${_tgt}>"
+                                COMMAND ${CMAKE_COMMAND} -E copy_if_different
+                                "${ASAN_THUNK_DLL}" "$<TARGET_FILE_DIR:${_tgt}>"
+                                VERBATIM
+                        )
+                    endif()
+                endforeach()
+            else()
+                message(WARNING "MSVC ASAN runtime DLLs not found. Tests may fail with 0xC0000135.")
+            endif()
+        endif()
+
         target_link_libraries(test_oop PRIVATE oop_lib GTest::gtest_main)
         target_include_directories(test_oop PRIVATE ${CMAKE_SOURCE_DIR}/include)
         set_compiler_flags(RUN_SANITIZERS TRUE TARGET_NAMES test_oop)
