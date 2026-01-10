@@ -172,6 +172,8 @@ target_link_libraries(
         ${MAIN_EXECUTABLE_NAME}_test
         ${MAIN_EXECUTABLE_NAME}_core
         GTest::gtest_main
+        GTest::gtest
+        GTest::gmock
 )
 
 include(GoogleTest)
