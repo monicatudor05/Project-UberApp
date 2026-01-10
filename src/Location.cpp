@@ -4,23 +4,7 @@
 using namespace std;
 Location::Location(double x, double y):x(x),y(y){}
 
-double Location::getX() const
-{
-    return x;
-}
-double Location::getY() const
-{
-    return y;
-}
 
-void Location::setX(double newX)
-{
-    x=newX;
-}
-void Location::setY(double newY)
-{
-    y=newY;
-}
 double Location::distanceTo(const Location& loc) const
 {
     double dx = x - loc.x;

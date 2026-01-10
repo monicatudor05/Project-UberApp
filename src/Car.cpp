@@ -8,33 +8,6 @@ brand(b), model(m), plateNumber(plate){}
 
 Car::~Car()=default;
 
-const std::string& Car::getBrand() const
-{
-    return brand;
-}
-
-const std::string& Car::getModel() const
-{
-    return model;
-}
-const std::string& Car::getPlateNumber() const
-{
-    return plateNumber;
-}
-
-void Car::setBrand(const std::string& b)
-{
-    brand=b;
-}
-void Car::setModel(const std::string& m)
-{
-    model=m;
-}
-void Car::setPlateNumber(const std::string& p)
-{
-    plateNumber=p;
-}
-
 std::string Car::toString(CarType type)
 {
     switch (type)

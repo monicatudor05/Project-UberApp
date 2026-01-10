@@ -17,11 +17,6 @@ void Driver::setAvailable(bool a)
     available=a;
 }
 
-void Driver::setLocation(const Location& loc)
-{
-    location=loc;
-}
-
 const string& Driver::getFullName() const
 {
     return fullname;

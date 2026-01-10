@@ -18,10 +18,6 @@ public:
 
     const std::string& getFullName() const;
 
-    [[maybe_unused]] const std::string& getEmail() const;
-
-    [[maybe_unused]] int getId() const;
-
     const Location& getLocation() const;
 
     friend std::ostream& operator<<(std::ostream& out, const User& usr);
