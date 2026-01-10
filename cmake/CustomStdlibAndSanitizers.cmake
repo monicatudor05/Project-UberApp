@@ -39,10 +39,9 @@ function(set_custom_stdlib_and_sanitizers target add_apple_asan)
             target_compile_options(${target} PRIVATE "$<${debug_mode}:-fsanitize=address,undefined>")
             target_link_options(${target} PRIVATE "$<${debug_mode}:-fsanitize=address,undefined>")
         elseif(USE_MSAN)
-            # use semi-colons instead of spaces to separate arguments
-            # it is recommended to quote generator expressions in order to avoid unintentional splitting
-            target_compile_options(${target} PRIVATE "$<${debug_mode}:-fsanitize=memory,undefined;-fsanitize-recover=memory,undefined;-fsanitize-memory-track-origins>")
-            target_link_options(${target} PRIVATE "$<${debug_mode}:-fsanitize=memory,undefined;-fsanitize-recover=memory,undefined;-fsanitize-memory-track-origins;-Wl,-rpath,tools/llvm-project/build/lib>")
+            set(MSAN_IGNORE_PATH "${CMAKE_SOURCE_DIR}/msan_ignore.txt")
+            target_compile_options(${target} PRIVATE "$<${debug_mode}:-fsanitize=memory,undefined;-fsanitize-recover=memory,undefined;-fsanitize-memory-track-origins;-fsanitize-ignorelist=${MSAN_IGNORE_PATH}>")
+            target_link_options(${target} PRIVATE "$<${debug_mode}:-fsanitize=memory,undefined;-fsanitize-recover=memory,undefined;-fsanitize-memory-track-origins>")
         endif()
     endif()
 endfunction()

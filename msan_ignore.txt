@@ -1,0 +1,4 @@
+# Ignore uninitialized values in the system libc++
+src:*/include/c++/v1/*
+# Ignore GoogleTest internals if they trigger false positives due to libc++
+fun:*testing*internal*
