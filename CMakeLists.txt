@@ -130,7 +130,6 @@ FetchContent_MakeAvailable(googletest)
 ###############################################################################
 
 add_library(${MAIN_EXECUTABLE_NAME}_core ${SOURCES})
-target_link_libraries(${MAIN_EXECUTABLE_NAME}_core stdc++ c++)
 
 # NOTE: update executable name in .github/workflows/cmake.yml:25 when changing name here
 add_executable(${MAIN_EXECUTABLE_NAME} main.cpp)
@@ -139,6 +138,7 @@ target_link_libraries(${MAIN_EXECUTABLE_NAME} ${MAIN_EXECUTABLE_NAME}_core)
 # NOTE: Add all defined targets (e.g. executables, libraries, etc. )
 # NOTE: RUN_SANITIZERS is optional, if it's not present it will default to true
 set_compiler_flags(RUN_SANITIZERS TRUE TARGET_NAMES ${MAIN_EXECUTABLE_NAME})
+set_compiler_flags(RUN_SANITIZERS TRUE TARGET_NAMES ${MAIN_EXECUTABLE_NAME}_core)
 # set_compiler_flags(TARGET_NAMES ${MAIN_EXECUTABLE_NAME} ${FOO} ${BAR})
 # where ${FOO} and ${BAR} represent additional executables or libraries
 # you want to compile with the set compiler flags
@@ -177,5 +177,8 @@ target_link_libraries(
 include(GoogleTest)
 gtest_discover_tests(${MAIN_EXECUTABLE_NAME}_test)
 copy_files(FILES tastatura.txt COPY_TO_DESTINATION TARGET_NAME ${MAIN_EXECUTABLE_NAME})
+
+set_compiler_flags(RUN_SANITIZERS TRUE TARGET_NAMES ${MAIN_EXECUTABLE_NAME}_test)
+
 # copy_files(FILES tastatura.txt config.json DIRECTORY images sounds COPY_TO_DESTINATION TARGET_NAME ${MAIN_EXECUTABLE_NAME})
 # copy_files(DIRECTORY images sounds COPY_TO_DESTINATION TARGET_NAME ${MAIN_EXECUTABLE_NAME})
